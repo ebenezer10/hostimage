@@ -21,4 +21,5 @@
 
 ### Custom ###
 public/uploads/
-###< Custom ###
+.DS_Store/
+###< Custom ###=

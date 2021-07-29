@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1>Create new Picture</h1>
+    <p>Select the picture you want to upload</p>
+    <hr/>
 
     {{ include('picture/_form.html.twig') }}
-
-    <a href="{{ path('picture_index') }}">back to list</a>
 {% endblock %}

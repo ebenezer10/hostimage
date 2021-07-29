@@ -1,0 +1,25 @@
+body, html{
+    height: 100%;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    padding-top: 100px;
+}
+
+#page-content {
+    flex: 1 0 auto;
+}
+
+.dark-theme{
+    color: rgb(173, 186, 199) !important;
+    background-color: rgba(34, 39, 46,1) !important;
+}
+
+.dark-theme a{
+    color: rgb(173, 186, 199);
+}
+
+.thumb{
+    width: 200px;
+    height: 200px;
+}

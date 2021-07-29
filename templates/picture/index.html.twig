@@ -1,37 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Picture index{% endblock %}
+{% block title %}Picture index
+{% endblock %}
 
 {% block body %}
-    <h1>Picture index</h1>
+	<div class="modal fade" tabindex="-1" id="exampleModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+				</div>
+				<div class="modal-body">
+					<p>
+					<img src="#" alt="picture" id="modalPreviewImg" class="w-100 img-thumbnail" />
+					</p>
+				</div>
+				<div class="p-3 border-top">
+					<span class="text"></span>
+					<a href="#" class="btn btn-outline-success">Details</a>
+					<a href="#" target="_blank" class="btn btn-outline-primary">View</a>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Path</th>
-                <th>Size</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for picture in pictures %}
-            <tr>
-                <td>{{ picture.id }}</td>
-                <td>{{ picture.path }}</td>
-                <td>{{ picture.size }}</td>
-                <td>
-                    <a href="{{ path('picture_show', {'id': picture.id}) }}">show</a>
-                    <a href="{{ path('picture_edit', {'id': picture.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('picture_new') }}">Create new</a>
+	<div class="row">
+		<div class="col">
+			<h1>My pictures</h1>
+			<p>List of your uploaded pictures</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+
+			{% for picture in pictures %}
+				<!-- <a href="{{ path('picture_show', {'id': picture.id}) }}"> -->
+				<a href="#" data-bs-toggle="modal" onclick="makeChanges('{{ asset('uploads/'~app.user.email~'/'~picture.path) }}')" data-bs-target="#exampleModal">
+					<img src="{{ asset('uploads/'~app.user.email~'/'~picture.path) }}" class="img-thumbnail thumb" alt="picture"/>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block javascripts %}
+	<script>
+		function makeChanges(path) {
+			let element = document.getElementById('modalPreviewImg');
+			element.setAttribute('src',path);
+		}
+	</script>
 {% endblock %}

@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="mb-3">
+	{{ form_widget(form.path) }}
+</div>
+<button class="btn btn-outline-success">
+<span class="fas fa-upload"></span>
+Upload
+</button>
+<a href="{{ path('picture_index') }}" class="btn btn-outline-secondary">List of my pictures</a>
 {{ form_end(form) }}

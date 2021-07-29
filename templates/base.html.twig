@@ -1,19 +1,107 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}Welcome!
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body class="d-flex flex-column">
+    <div id="page-content"></div>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top border-bottom dark-theme">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('main') }}">Hostimage</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        {% if app.user is defined and app.user is not null %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('main') }}">
+                                <span class="fas fa-home"></span>
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('picture_new') }}">
+                                <span class="fas fa-upload"></span>
+                                Upload
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div>
+                    <ul class="navbar-nav">
+                        {% if app.user is defined and app.user is not null %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.email }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{ path('picture_index') }}">My pictures</a></li>
+                                <li><a class="dropdown-item" href="{{ path('picture_new') }}">Add picture</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}" role="button">
+                                Create account
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}" role="button">
+                                Sign in
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item mt-1">
+                            <a class="github-button" href="https://github.com/ebenezer10/hostimage" data-size="large"
+                                aria-label="Follow @ebenezer10 on GitHub">Github</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container h-100">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <footer class="pt-2 dark-theme mt-5">
+        <div class="container">
+            <div class="footer-copyright text-center py-3">© 2021 Copyrights.
+                <a href="#">Hostimage</a>
+                All rights reserved.
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e5cc2d1592.js" crossorigin="anonymous"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+
 </html>
